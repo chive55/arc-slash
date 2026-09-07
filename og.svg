@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#080B18"/>
+      <stop offset="100%" stop-color="#0D1228"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- subtle grid -->
+  <g stroke="#111A38" stroke-width="1" opacity="0.6">
+    <path d="M0 105 H1200 M0 210 H1200 M0 315 H1200 M0 420 H1200 M0 525 H1200"/>
+    <path d="M150 0 V630 M300 0 V630 M450 0 V630 M600 0 V630 M750 0 V630 M900 0 V630 M1050 0 V630"/>
+  </g>
+
+  <!-- left title stack -->
+  <text x="64" y="220" font-family="ui-sans-serif, system-ui, sans-serif" font-size="72" font-weight="800" fill="#FFFFFF" letter-spacing="0.06em">ARC</text>
+  <text x="64" y="310" font-family="ui-sans-serif, system-ui, sans-serif" font-size="72" font-weight="800" fill="#53E6FF" filter="url(#glow)" letter-spacing="0.06em">SLASH</text>
+  <text x="64" y="370" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" fill="#B8C3E4">Tap to slash the swarm</text>
+
+  <!-- right motif: core + arc slash + threats -->
+  <g transform="translate(820, 315)">
+    <!-- arc sector -->
+    <path d="M0 0 L120 -90 A150 150 0 0 1 120 90 Z" fill="#53E6FF22" stroke="#53E6FF" stroke-width="4" filter="url(#glow)"/>
+    <path d="M0 0 L110 -70 A130 130 0 0 1 110 70 Z" fill="none" stroke="#6EE7FF" stroke-width="2" opacity="0.7"/>
+    <!-- core -->
+    <circle cx="0" cy="0" r="28" fill="#53E6FF" filter="url(#glow)"/>
+    <circle cx="0" cy="0" r="12" fill="#E8FBFF"/>
+    <!-- threats -->
+    <circle cx="-110" cy="-95" r="14" fill="#FF4FD8" filter="url(#glow)"/>
+    <circle cx="-110" cy="-95" r="6" fill="#FF9AE8"/>
+    <circle cx="140" cy="40" r="12" fill="#FF4FD8" filter="url(#glow)"/>
+    <circle cx="140" cy="40" r="5" fill="#FF9AE8"/>
+    <circle cx="-40" cy="130" r="11" fill="#FF4FD8" filter="url(#glow)"/>
+    <circle cx="-40" cy="130" r="5" fill="#FF9AE8"/>
+  </g>
+
+  <text x="600" y="590" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" fill="#53E6FF" letter-spacing="0.35em" opacity="0.85">CHIVE ARCADE</text>
+</svg>
