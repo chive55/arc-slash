@@ -205,7 +205,7 @@
       threats = [];
       particles = [];
       arcs = [];
-      spawnTimer = 1.15;
+      spawnTimer = 0.5;
       difficulty = 1;
       score = 0;
       shake = 0;
@@ -232,9 +232,9 @@
       if (!running) return;
       const dx = px - cx(), dy = py - cy();
       const ang = Math.atan2(dy, dx);
-      arcs.push({ ang, life: 0.2, max: 0.2, width: 0.7 + Math.min(0.18, difficulty * 0.02) });
+      arcs.push({ ang, life: 0.14, max: 0.14, width: 0.38 + Math.min(0.1, difficulty * 0.015) });
       audio.tap();
-      const reach = Math.min(canvas.width, canvas.height) * 0.36;
+      const reach = Math.min(canvas.width, canvas.height) * 0.24;
       for (let i = 0; i < 6; i++) {
         const a = ang + (Math.random() - 0.5) * 0.4;
         particles.push({
@@ -331,19 +331,19 @@
         ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
       }
       if (running) {
-        difficulty = 1 + score * 0.085;
+        difficulty = 1 + score * 0.13;
         spawnTimer -= dt;
         if (spawnTimer <= 0) {
           spawnThreat();
-          if (score > 10 && Math.random() < 0.34) spawnThreat();
-          spawnTimer = Math.max(0.26, 1.0 - difficulty * 0.11);
+          if (score > 6 && Math.random() < 0.4) spawnThreat();
+          spawnTimer = Math.max(0.16, 0.7 - difficulty * 0.13);
         }
         for (let i = arcs.length - 1; i >= 0; i--) {
           const a = arcs[i];
           a.life -= dt;
           if (a.life <= 0) { arcs.splice(i, 1); continue; }
           const alpha = a.life / a.max;
-          const reach = Math.min(w, h) * 0.38;
+          const reach = Math.min(w, h) * 0.26;
           ctx.beginPath();
           ctx.moveTo(cx(), cy());
           ctx.arc(cx(), cy(), reach, a.ang - a.width * 0.5, a.ang + a.width * 0.5);
@@ -365,7 +365,7 @@
           const td0 = Math.hypot(tdx0, tdy0) || 1;
           th.ux = tdx0 / td0;
           th.uy = tdy0 / td0;
-          const spd = (90 + difficulty * 52 + score * 3.6) * devicePixelRatio;
+          const spd = (140 + difficulty * 70 + score * 6) * devicePixelRatio;
           th.x += th.ux * spd * dt;
           th.y += th.uy * spd * dt;
           let hit = false;
@@ -374,7 +374,7 @@
           const tdist = Math.hypot(tdx, tdy);
           for (const a of arcs) {
             let d = Math.abs(((tang - a.ang + Math.PI * 3) % (Math.PI * 2)) - Math.PI);
-            if (d < a.width * 0.62 && tdist < Math.min(w, h) * 0.4) {
+            if (d < a.width * 0.55 && tdist < Math.min(w, h) * 0.28) {
               hit = true; break;
             }
           }
