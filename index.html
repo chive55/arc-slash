@@ -331,12 +331,14 @@
         ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(w, gy); ctx.stroke();
       }
       if (running) {
-        difficulty = 1 + score * 0.13;
+        const early = Math.min(score, 10);
+        const late = Math.max(0, score - 10);
+        difficulty = 1 + early * 0.13 + late * 0.045;
         spawnTimer -= dt;
         if (spawnTimer <= 0) {
           spawnThreat();
-          if (score > 6 && Math.random() < 0.4) spawnThreat();
-          spawnTimer = Math.max(0.16, 0.7 - difficulty * 0.13);
+          if (score > 8 && Math.random() < 0.28) spawnThreat();
+          spawnTimer = Math.max(0.24, 0.7 - difficulty * 0.1);
         }
         for (let i = arcs.length - 1; i >= 0; i--) {
           const a = arcs[i];
@@ -365,7 +367,7 @@
           const td0 = Math.hypot(tdx0, tdy0) || 1;
           th.ux = tdx0 / td0;
           th.uy = tdy0 / td0;
-          const spd = (140 + difficulty * 70 + score * 6) * devicePixelRatio;
+          const spd = (140 + difficulty * 70 + early * 6 + late * 2.2) * devicePixelRatio;
           th.x += th.ux * spd * dt;
           th.y += th.uy * spd * dt;
           let hit = false;
