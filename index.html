@@ -232,7 +232,7 @@
       if (!running) return;
       const dx = px - cx(), dy = py - cy();
       const ang = Math.atan2(dy, dx);
-      arcs.push({ ang, life: 0.14, max: 0.14, width: 0.38 + Math.min(0.1, difficulty * 0.015) });
+      arcs.push({ ang, life: 0.16, max: 0.16, width: 0.55 + Math.min(0.12, difficulty * 0.02) });
       audio.tap();
       const reach = Math.min(canvas.width, canvas.height) * 0.24;
       for (let i = 0; i < 6; i++) {
@@ -374,7 +374,7 @@
           const tdist = Math.hypot(tdx, tdy);
           for (const a of arcs) {
             let d = Math.abs(((tang - a.ang + Math.PI * 3) % (Math.PI * 2)) - Math.PI);
-            if (d < a.width * 0.55 && tdist < Math.min(w, h) * 0.28) {
+            if (d < a.width * 0.62 && tdist < Math.min(w, h) * 0.3) {
               hit = true; break;
             }
           }
