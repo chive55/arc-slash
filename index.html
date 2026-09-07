@@ -214,7 +214,7 @@
       threats = [];
       particles = [];
       arcs = [];
-      spawnTimer = 0;
+      spawnTimer = 1.15;
       difficulty = 1;
       score = 0;
       shake = 0;
@@ -241,7 +241,7 @@
       if (!running) return;
       const dx = px - cx(), dy = py - cy();
       const ang = Math.atan2(dy, dx);
-      arcs.push({ ang, life: 0.18, max: 0.18, width: 0.55 + Math.min(0.25, difficulty * 0.02) });
+      arcs.push({ ang, life: 0.28, max: 0.28, width: 0.95 + Math.min(0.35, difficulty * 0.03) });
       audio.tap();
       const reach = Math.min(canvas.width, canvas.height) * 0.42;
       for (let i = 0; i < 6; i++) {
@@ -281,7 +281,7 @@
       else { x = -m; y = Math.random() * canvas.height; }
       const dx = cx() - x, dy = cy() - y;
       const dist = Math.hypot(dx, dy) || 1;
-      const speed = (0.9 + difficulty * 0.18 + Math.random() * 0.3) * devicePixelRatio;
+      const speed = (95 + difficulty * 14 + Math.random() * 20) * devicePixelRatio;
       threats.push({
         x, y,
         vx: (dx / dist) * speed,
@@ -349,12 +349,12 @@
       }
 
       if (running) {
-        difficulty = 1 + score * 0.04;
+        difficulty = 1 + score * 0.018;
         spawnTimer -= dt;
         if (spawnTimer <= 0) {
           spawnThreat();
-          if (score > 12 && Math.random() < 0.35) spawnThreat();
-          spawnTimer = Math.max(0.28, 0.85 - difficulty * 0.06);
+          if (score > 22 && Math.random() < 0.22) spawnThreat();
+          spawnTimer = Math.max(0.55, 1.2 - difficulty * 0.04);
         }
 
         for (let i = arcs.length - 1; i >= 0; i--) {
@@ -381,8 +381,8 @@
 
         for (let i = threats.length - 1; i >= 0; i--) {
           const th = threats[i];
-          th.x += th.vx;
-          th.y += th.vy;
+          th.x += th.vx * dt;
+          th.y += th.vy * dt;
 
           let hit = false;
           const tdx = th.x - cx(), tdy = th.y - cy();
@@ -390,7 +390,7 @@
           const tdist = Math.hypot(tdx, tdy);
           for (const a of arcs) {
             let d = Math.abs(((tang - a.ang + Math.PI * 3) % (Math.PI * 2)) - Math.PI);
-            if (d < a.width * 0.55 && tdist < Math.min(w, h) * 0.5) {
+            if (d < a.width * 0.72 && tdist < Math.min(w, h) * 0.52) {
               hit = true; break;
             }
           }
