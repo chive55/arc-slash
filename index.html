@@ -232,9 +232,9 @@
       if (!running) return;
       const dx = px - cx(), dy = py - cy();
       const ang = Math.atan2(dy, dx);
-      arcs.push({ ang, life: 0.16, max: 0.16, width: 0.55 + Math.min(0.12, difficulty * 0.02) });
+      arcs.push({ ang, life: 0.2, max: 0.2, width: 0.88 + Math.min(0.18, difficulty * 0.025) });
       audio.tap();
-      const reach = Math.min(canvas.width, canvas.height) * 0.24;
+      const reach = Math.min(canvas.width, canvas.height) * 0.36;
       for (let i = 0; i < 6; i++) {
         const a = ang + (Math.random() - 0.5) * 0.4;
         particles.push({
@@ -343,7 +343,7 @@
           a.life -= dt;
           if (a.life <= 0) { arcs.splice(i, 1); continue; }
           const alpha = a.life / a.max;
-          const reach = Math.min(w, h) * 0.26;
+          const reach = Math.min(w, h) * 0.4;
           ctx.beginPath();
           ctx.moveTo(cx(), cy());
           ctx.arc(cx(), cy(), reach, a.ang - a.width * 0.5, a.ang + a.width * 0.5);
@@ -374,7 +374,7 @@
           const tdist = Math.hypot(tdx, tdy);
           for (const a of arcs) {
             let d = Math.abs(((tang - a.ang + Math.PI * 3) % (Math.PI * 2)) - Math.PI);
-            if (d < a.width * 0.62 && tdist < Math.min(w, h) * 0.3) {
+            if (d < a.width * 0.7 && tdist < Math.min(w, h) * 0.44) {
               hit = true; break;
             }
           }
