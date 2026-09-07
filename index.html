@@ -279,13 +279,8 @@
       else if (side === 1) { x = canvas.width + m; y = Math.random() * canvas.height; }
       else if (side === 2) { x = Math.random() * canvas.width; y = canvas.height + m; }
       else { x = -m; y = Math.random() * canvas.height; }
-      const dx = cx() - x, dy = cy() - y;
-      const dist = Math.hypot(dx, dy) || 1;
-      const speed = (95 + difficulty * 14 + Math.random() * 20) * devicePixelRatio;
       threats.push({
         x, y,
-        vx: (dx / dist) * speed,
-        vy: (dy / dist) * speed,
         r: (10 + Math.random() * 6) * devicePixelRatio,
         hp: 1
       });
@@ -349,12 +344,12 @@
       }
 
       if (running) {
-        difficulty = 1 + score * 0.018;
+        difficulty = 1 + score * 0.05;
         spawnTimer -= dt;
         if (spawnTimer <= 0) {
           spawnThreat();
-          if (score > 22 && Math.random() < 0.22) spawnThreat();
-          spawnTimer = Math.max(0.55, 1.2 - difficulty * 0.04);
+          if (score > 18 && Math.random() < 0.28) spawnThreat();
+          spawnTimer = Math.max(0.38, 1.15 - difficulty * 0.07);
         }
 
         for (let i = arcs.length - 1; i >= 0; i--) {
@@ -381,8 +376,13 @@
 
         for (let i = threats.length - 1; i >= 0; i--) {
           const th = threats[i];
-          th.x += th.vx * dt;
-          th.y += th.vy * dt;
+          const tdx0 = cx() - th.x, tdy0 = cy() - th.y;
+          const td0 = Math.hypot(tdx0, tdy0) || 1;
+          th.ux = tdx0 / td0;
+          th.uy = tdy0 / td0;
+          const spd = (88 + difficulty * 36 + score * 2.2) * devicePixelRatio;
+          th.x += th.ux * spd * dt;
+          th.y += th.uy * spd * dt;
 
           let hit = false;
           const tdx = th.x - cx(), tdy = th.y - cy();
